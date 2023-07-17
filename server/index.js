@@ -13,11 +13,6 @@ const {Category} = require('./models/category')
 const {Expense} = require('./models/expense')
 const {Income} = require('./models/income')
 
-//db relationships 
-Credential.hasOne(User) //one-to-one user-password
-User.hasMany(Income) // one-to-many user-income
-User.hasMany(Expense) // one-to-many user-expense
-Expense.belongsTo(Category) // one-to-one expense-category
 
 //middleware
 const app = express()
@@ -25,10 +20,21 @@ const app = express()
 //middleware
 app.use(express.json())
 app.use(cors())
+const {isAuthenticated} = require('./middleware/isAuthenticated')
+
+//functionality-controllers
+const {register, login} = require('./controllers/auth')
+
+
+// //db relationships --established in db table set up (ser>models)
+// Credential.hasOne(User) //one-to-one user-password
+// User.hasMany(Income) // one-to-many user-income
+// User.hasMany(Expense) // one-to-many user-expense
+// Expense.belongsTo(Category) // one-to-one expense-category
 
 //routes - endpoints
-// work with posts - authenticated
-app.post(`/login`, login)
+app.post('/register', register)
+app.post('/login',login)
 
 
 
