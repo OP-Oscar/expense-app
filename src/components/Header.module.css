@@ -1,0 +1,36 @@
+.header {
+	height: 80px;
+	background-color: #142ab5;
+	color: #f0f0f0;
+	padding: 0 10px;
+}
+
+.logo {
+	height: 70px;
+	margin-right: 10px;
+}
+
+.main_nav {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.main_nav li {
+	padding: 0 10px;
+}
+
+.logout_btn {
+	color: #f0f0f0;
+	text-decoration: none;
+	transition: .3s;
+	font-size: 1rem;
+	background: transparent;
+	border: none;
+	padding: 0;
+	margin: 0;
+}
+
+.logout_btn:hover {
+	color: #f57145;
+}

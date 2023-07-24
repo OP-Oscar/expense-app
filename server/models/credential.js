@@ -1,3 +1,5 @@
+// NOT USED AT THE MOMENT --will be seperated with update //
+
 //sequelize data types
 const {DataTypes} = require('sequelize')
 

@@ -1,0 +1,12 @@
+.auth-form {
+	width: 300px;
+	height: 200px;
+}
+
+.auth-input {
+	width: 200px;
+}
+
+.auth-msg {
+	margin-bottom: 15px;
+}

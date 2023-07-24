@@ -30,10 +30,9 @@ module.exports = {
                 //column name of the referenced model
                 key: 'pw_id',
                 //immediately check the foreign key constraints
-                // deferrable: Deferrable.NOT
+                deferrable: Deferrable.INITIALLY_DEFERRED
             }
         }
-
     },{
         freezeTableName: true
     } )

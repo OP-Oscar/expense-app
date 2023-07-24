@@ -16,7 +16,7 @@ function createToken(username, id) {
   return jwt.sign(
     {
       username,
-      user_id,
+      id,
     },
     SECRET,
     {
@@ -39,15 +39,15 @@ module.exports = {
         res.status(400).send(`Cannot create user, try a different username`);
       } else {
         //salt lvl
-        const salt = brcypt.genSaltSync(10);
+        const salt = bcrypt.genSaltSync(10);
         //hashed pw
         const hash = bcrypt.hashSync(password, salt);
-        //creating new user entry in user table
-        const newUser = await User.create({ username, f_name, l_name });
         //creating new pw entry in credential table
-        const newPw = await Credential.create({ hashed_pw: hash });
+        const newPw = await Credential.create({ hashed_pw: hash }); 
+        //creating new user entry in user table
+        const newUser = await User.create({ username, f_name, l_name, pw_id: newPw.dataValues.pw_id});
         //creating session token
-        const token = createToken(
+        const token = await createToken(
           newUser.dataValues.username,
           newUser.dataValues.user_id
         );
@@ -74,20 +74,21 @@ module.exports = {
   //function to login
   login: async (req, res) => {
     try {
+
       //receiving username,password from frontend
       const { username, password } = req.body;
       //checking of username exists
       let foundUser = await User.findOne({ where: { username } });
       //retrieving hashed pw for reference
-      let pwRef = await Credential.findOne({
+      let pwRef = await Credential.findOne({ //=>only used if credential table created
         where: { pw_id: foundUser.dataValues.pw_id },
       });
       //conditional statement based if username is found
       if (foundUser) {
         //confirming password match
         const isAuthenticated = bcrypt.compareSync(
-          password,
-          pwRef.dataValues.hashed_pw
+          password, //=>incoming front end pw
+          pwRef.hashed_pw //user record pw
         );
         if (isAuthenticated) {
           //if authenticated successful, create token
