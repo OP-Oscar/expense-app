@@ -1,5 +1,7 @@
 //bringing in sequelize db connection
 const {sequelize} = require('../util/database')
+//module to generate random text
+const LoremIpsum = require("lorem-ipsum").LoremIpsum;
 
 //models
 const {Category} = require('../models/category')
@@ -7,6 +9,7 @@ const {Credential} = require('../models/credential')
 const {User} = require('../models/user')
 const {Income} = require('../models/income')
 const {Expense} = require('../models/expense')
+
 
 //sample data to insert
 const categoryToInsert = [
@@ -81,22 +84,107 @@ const userToInsert = [
     },
 ];
 
-const incomeToInsert = [{}]
 
-const expenseToInsert = [{}]
+//function to use lorem module
+const lorem = new LoremIpsum({
+    sentencesPerParagraph: {
+      max: 8,
+      min: 4
+    },
+    wordsPerSentence: {
+      max: 16,
+      min: 4
+    }
+  });
+  
+  lorem.generateWords(1);
 
+//function to generate dates within 2-month timeframe
+const today = new Date()
+const pastDay = new Date(new Date().setDate(today.getDate() - 60))
+const startDate = pastDay.toISOString().split('T')[0]
+const endDate = today.toISOString().split('T')[0];
 
+// Calculate the number of days between the start and end dates
+const daysInRange = Math.floor((new Date(endDate) - new Date(startDate)) / (24 * 60 * 60 * 1000)) + 1;
+
+// Generate random expense data for each day within the 2-month timeframe
+const expensesToInsert = [];
+for (let i = 0; i < 60; i++) {
+  const randomDate = new Date(startDate);
+  randomDate.setDate(randomDate.getDate() + Math.floor(Math.random() * daysInRange));
+  //function to generate random decimal numbers
+  const randomAmount = (min, max) => +(Math.random() * (max - min) + min).toFixed(2);
+  //function to generate random word
+  const randomWord = lorem.generateWords(1);
+
+  const randomId= (min, max) => {return Math.floor(Math.random() * (max - min + 1)) + min;}
+
+  //pushing entries to empty expensesToInsert list
+  expensesToInsert.push({
+    expense_name: randomWord,
+    amount: randomAmount(1,200),
+    expense_date: new Date(randomDate),
+    user_id: randomId(1,3), 
+    category_id: randomId(1,9),
+  });
+}
+
+const incomeToInsert = [
+    {
+        income_name: 'job',
+        amount: 1000,
+        income_date: new Date(new Date().setDate(today.getDate() - 60)),
+        user_id: 1
+    }, 
+    {
+        income_name: 'job',
+        amount: 1200,
+        income_date: new Date(new Date().setDate(today.getDate() - 60)),
+        user_id: 2
+    }, 
+    {
+        income_name: 'job',
+        amount: 1300,
+        income_date: new Date(new Date().setDate(today.getDate() - 60)),
+        user_id: 3
+    },
+    {
+        income_name: 'job',
+        amount: 1000,
+        income_date: new Date(new Date().setDate(today.getDate() - 30)),
+        user_id: 1
+    }, 
+    {
+        income_name: 'job',
+        amount: 1200,
+        income_date: new Date(new Date().setDate(today.getDate() - 30)),
+        user_id: 2
+    }, 
+    {
+        income_name: 'job',
+        amount: 1300,
+        income_date: new Date(new Date().setDate(today.getDate() - 30)),
+        user_id: 3
+    }, 
+]
+
+//sequelize doc to rev
+//https://sequelize.org/docs/v6/other-topics/transactions/
+
+//seed function which will be exported
 module.exports = {
     seed: async (req, res) => {
+        //insert data to category table
         await Category.bulkCreate(categoryToInsert)
-        
+        //insert data to credential table
         await Credential.bulkCreate(credentialToInsert)
-        
+        //insert data to user table
         await User.bulkCreate(userToInsert)
-
-        // await Income.bulkCreate(incomeToInsert) //=>pending
-
-        // await Expense.bulkCreate(expenseToInsert) //=>pending
+        //insert data to income table
+        await Income.bulkCreate(incomeToInsert)
+        //insert data to expense table
+        await Expense.bulkCreate(expensesToInsert) 
 
         .then(() => {
             console.log('DB Successfully seeded!')
