@@ -8,7 +8,8 @@ const AuthContext = createContext({
   logout: () => {},
   userId: null,
   catSelector: () => {},
-  selectedCategory: ''
+  selectedCategory: '',
+  isToggled: null,
 })
 
 const calculateRemainingTime = (exp) => {
@@ -56,6 +57,16 @@ export const AuthContextProvider = (props) => {
   const [token, setToken] = useState(initialToken)
   const [userId, setUserId] = useState(initialId)
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [isToggled, setIsToggled] = useState(false);
+
+
+  const catSelector = (x) => {
+    setSelectedCategory(x)
+  }
+
+  const toggleSelector = () => {
+    setIsToggled(!isToggled)
+  }
 
   const logout = useCallback(() => {
     setToken(null)
@@ -69,9 +80,6 @@ export const AuthContextProvider = (props) => {
     }
   }, [])
 
-  const catSelector = (x) => {
-    setSelectedCategory(x)
-  }
 
   const login = (token, exp, userId) => {
     setToken(token)
@@ -98,7 +106,10 @@ export const AuthContextProvider = (props) => {
     logout, 
     userId,
     catSelector,
-    selectedCategory
+    selectedCategory,
+    isToggled,
+    toggleSelector
+
   }
 
   return (

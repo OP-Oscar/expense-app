@@ -29,8 +29,8 @@ const Header = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink style={styleActiveLink} to="tracker">
-                Tracker
+              <NavLink style={styleActiveLink} to="track">
+                Track
               </NavLink>
             </li>
             <li>

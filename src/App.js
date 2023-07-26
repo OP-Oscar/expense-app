@@ -11,6 +11,7 @@ import Home from './components/Home'
 import Statement from './components/Statement'
 import ExpenseForm from './components/ExpenseForm'
 import SignInForm from "./components/SignInForm";
+import FormPick from "./components/FormPick";
 
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
 
         <Route path='/signin' element={!authCtx.token ? <SignInForm/> : <Navigate to='/'/>}/>
 
-        <Route path='/tracker' element={authCtx.token ? <ExpenseForm/> : <Navigate to='/auth'/>}/>
+        <Route path='/track' element={authCtx.token ? <FormPick/> : <Navigate to='/auth'/>}/>
 
         <Route path='/statement' element={authCtx.token ? <Statement/> : <Navigate to='/auth'/>}/>
 
