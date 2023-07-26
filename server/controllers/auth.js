@@ -80,7 +80,7 @@ module.exports = {
       //checking of username exists
       let foundUser = await User.findOne({ where: { username } });
       //retrieving hashed pw for reference
-      let pwRef = await Credential.findOne({ //=>only used if credential table created
+      let pwRef = await Credential.findOne({
         where: { pw_id: foundUser.dataValues.pw_id },
       });
       //conditional statement based if username is found

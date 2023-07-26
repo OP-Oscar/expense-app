@@ -1,7 +1,7 @@
 //bringing in sequelize db connection
 const {sequelize} = require('../util/database')
 //module to generate random text
-const LoremIpsum = require("lorem-ipsum").LoremIpsum;
+const LoremIpsum = require("lorem-ipsum").LoremIpsum; //obtained from https://github.com/knicklabs/lorem-ipsum.js
 
 //models
 const {Category} = require('../models/category')

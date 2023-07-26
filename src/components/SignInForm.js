@@ -69,13 +69,12 @@ const SignInForm = () => {
           />
           <button className={styles.form_btn}>Login</button>
 
-          <a
-            href="#"
-            className={styles.signupLink}
+          <button
+            className={styles.link_button}
             onClick={() => setRegister(!register)}
           >
             Create an account
-          </a>
+          </button>
         </form>
       ) : (
         <form
@@ -116,13 +115,12 @@ const SignInForm = () => {
           />
           <button className={styles.form_btn}>Sign Up</button>
 
-          <a
-            href="#"
-            className={styles.signupLink}
+          <button
+            className={styles.link_button}
             onClick={() => setRegister(!register)}
           >
             Already have account?
-          </a>
+          </button>
         </form>
       )}
     </main>

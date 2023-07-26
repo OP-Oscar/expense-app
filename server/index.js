@@ -27,7 +27,7 @@ const {seed} = require('./controllers/seed')
 //controllers-auth
 const {register, login} = require('./controllers/auth')
 //controllers-functionality
-const {getAllCategory} = userController;
+const {getAllCategory, addExpense} = userController;
 
 // //db relationships --established in db table set up (ser>models)
 // Credential.hasOne(User) //one-to-one user-password
@@ -41,13 +41,14 @@ app.post('/seed', seed)
 app.post('/register', register)
 app.post('/login',login)
 app.get(`/category`, getAllCategory)
+app.post('/addexpense', addExpense)
 
 
 
 
 // not reinitializing DB, force true added later if the app is deployed sequelize.sync({ force: true })
 // ***will need reseeding if doing demo***
-sequelize.sync({ force: true })
+sequelize.sync()
     .then(() => {
         app.listen(PORT, () => console.log(`db sync successful & server running on port ${PORT}`))
     })

@@ -10,3 +10,7 @@ input[type=number] {
   appearance: none; 
   -moz-appearance: textfield;
 }
+
+div{
+  text-align: center;
+}

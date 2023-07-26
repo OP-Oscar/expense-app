@@ -60,3 +60,13 @@
 .signupLink{
     color: blue;
 }
+
+.link_button {
+	background: none;
+	border: none;
+	color: blue;
+	cursor: pointer;
+	padding: 0;
+	font-size: inherit;
+	font-family: inherit;
+  }

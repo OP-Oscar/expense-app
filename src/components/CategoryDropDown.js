@@ -1,12 +1,14 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import axios from 'axios'
-
+import AuthContext from "../store/authContext";
 
 
 function CategoryDropDown() {
+  const authCtx = useContext(AuthContext);
+
   //managing state of category drop down
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
+  // const [selectedCategory, setSelectedCategory] = useState('');
   const url = "http://localhost:5050";
 
   useEffect(() => {
@@ -17,16 +19,17 @@ function CategoryDropDown() {
   }, []);
 
   const handleCategoryChange = (e) => {
-    setSelectedCategory(e.target.value);
+    // setSelectedCategory(e.target.value);
+    authCtx.catSelector(e.target.value);
   };
 
   return (
     <div>
       <label>Select Category</label>
-      <select value={selectedCategory} onChange={handleCategoryChange}>
+      <select value={authCtx.selectedCategory} onChange={handleCategoryChange} required>
         <option value="">Select a category</option>
         {categories.map((category) => (
-          <option key={category.category_id} value={category.category_name}>  {/* category.id => category.category_id*/}
+          <option key={category.category_id} value={category.category_id}>
             {category.category_name}
           </option>
         ))}

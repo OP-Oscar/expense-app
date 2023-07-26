@@ -6,7 +6,9 @@ const AuthContext = createContext({
   token: '',
   login: () => {},
   logout: () => {},
-  userId: null
+  userId: null,
+  catSelector: () => {},
+  selectedCategory: ''
 })
 
 const calculateRemainingTime = (exp) => {
@@ -41,6 +43,7 @@ const getLocalData = () => {
 
 
 export const AuthContextProvider = (props) => {
+  
   const localData = getLocalData()
   
   let initialToken
@@ -52,7 +55,7 @@ export const AuthContextProvider = (props) => {
 
   const [token, setToken] = useState(initialToken)
   const [userId, setUserId] = useState(initialId)
-
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const logout = useCallback(() => {
     setToken(null)
@@ -65,6 +68,10 @@ export const AuthContextProvider = (props) => {
       clearTimeout(logoutTimer)
     }
   }, [])
+
+  const catSelector = (x) => {
+    setSelectedCategory(x)
+  }
 
   const login = (token, exp, userId) => {
     setToken(token)
@@ -89,7 +96,9 @@ export const AuthContextProvider = (props) => {
     token,
     login,
     logout, 
-    userId
+    userId,
+    catSelector,
+    selectedCategory
   }
 
   return (
