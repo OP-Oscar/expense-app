@@ -17,7 +17,7 @@ function IncomeForm() {
     const [incomeName, setIncomeName] = useState("");
     const [amount, setAmount] = useState("");
     const [incomeDate, setIncomeDate] = useState(currentDate);
-    const { userId, selectedCategory } = useContext(AuthContext);
+    const { userId } = useContext(AuthContext);
     const formRef = useRef(null);
   
     const authCtx = useContext(AuthContext);
@@ -39,7 +39,7 @@ function IncomeForm() {
       const url = "http://localhost:5050";
   
       axios
-        .post(`${url}/addexpense`, body)
+        .post(`${url}/addIncome`, body)
         .then(({ data }) => {
           console.log(`Submit handler in expenseform.js actioned`, data);
           setIncomeName("");

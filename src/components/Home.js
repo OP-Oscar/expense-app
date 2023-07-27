@@ -13,14 +13,9 @@ const Home = () => {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:5050/xxx')
+        axios.get('http://localhost:5050/category')
         .then(res => {
-            if (userId) {
-                const otherUsersPosts = res.data.filter(post => userId !== post.userId)
-                setPosts(otherUsersPosts)
-            } else {
-                setPosts(res.data)
-            }
+                console.log(res.data)
         })
         .catch(err => {
             console.log(err)
