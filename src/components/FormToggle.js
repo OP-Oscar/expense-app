@@ -8,11 +8,13 @@ function FormToggle() {
     const authCtx = useContext(AuthContext);
   return (
     <div>
-  <label className={styles.toggle} defaultChecked={authCtx.isToggled} onChange={authCtx.toggleSelector}>
-    <input type="checkbox"/>
-    <span className={styles.slider}></span>
-    <span className={styles.labels} data-on="Income" data-off="Expense"></span>
-  </label>
+  <button
+            className={styles.link_button}
+            onClick={authCtx.toggleSelector}
+          >
+           {authCtx.isToggled ? 'Add An Expense Instead' : 'Add An Income Instead'}
+          </button>
+
   </div>
 
 

@@ -1,30 +1,27 @@
-import React, {useState, useContext} from 'react'
-import AuthContext from '../store/authContext'
-import styles from './FormPick.module.css'
+import React, { useContext } from "react";
+import AuthContext from "../store/authContext";
+import styles from "./FormPick.module.css";
+import {Card} from "flowbite-react";
 
 //React components
-import FormToggle from './FormToggle';
-import ExpenseForm from './ExpenseForm';
-import IncomeForm from './IncomeForm';
-
+import FormToggle from "./FormToggle";
+import ExpenseForm from "./ExpenseForm";
+import IncomeForm from "./IncomeForm";
 
 function FormPick() {
-    const authCtx = useContext(AuthContext);
-    const {isToggled} = authCtx
-    const [addingExpense, setAddingExpense] = useState(true);
+  const authCtx = useContext(AuthContext);
+  const { isToggled } = authCtx;
+  // const [addingExpense, setAddingExpense] = useState(true);
   return (
-    <div>
-        <FormToggle/>
-        <br />
-        {!isToggled ? 
-        <ExpenseForm/>
-        :
-        <IncomeForm/>
+    <main>
+      <Card>
+      {!isToggled ?  <ExpenseForm /> : <IncomeForm />}
+      <br />
 
-        }
-
-    </div>
-  )
+      <FormToggle />
+      </Card>
+    </main>
+  );
 }
 
-export default FormPick
+export default FormPick;

@@ -11,6 +11,10 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-div{
+.expense_title{
   text-align: center;
+}
+
+.expense_form{
+  width: 292px;
 }

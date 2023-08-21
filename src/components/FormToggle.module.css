@@ -86,3 +86,23 @@
 .toggle input:checked~.labels::before {
     opacity: 1;
 }
+
+.link_button {
+	background: none;
+	border: none;
+	color: darkblue;
+	cursor: pointer;
+	padding: 0;
+	font-size: inherit;
+	font-family: inherit;
+  }
+
+  .link_button:hover {
+	background: none;
+	border: none;
+	color: #da7533;
+	cursor: pointer;
+	padding: 0;
+	font-size: inherit;
+	font-family: inherit;
+  }

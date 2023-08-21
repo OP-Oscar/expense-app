@@ -1,0 +1,20 @@
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  appearance: none; 
+  -moz-appearance: textfield;
+}
+
+.income_title{
+    text-align: center;
+  }
+
+.income_form{
+    width: 319px;
+  }

@@ -27,7 +27,7 @@ const {seed} = require('./controllers/seed')
 //controllers-auth
 const {register, login} = require('./controllers/auth')
 //controllers-functionality
-const {getAllCategory, addExpense, addIncome, getAllIncome} = userController;
+const {getAllCategory, addExpense, addIncome, getAllIncome, getAllExpense, getAllExpenseWithCat, getAllTransactions, deleteTransaction} = userController;
 
 // //db relationships --established in db table set up (ser>models)
 // Credential.hasOne(User) //one-to-one user-password
@@ -40,11 +40,13 @@ app.post('/seed', seed)
 //routes - endpoints
 app.post('/register', register)
 app.post('/login',login)
-app.get(`/category`, getAllCategory)
-app.get('/income/:userId', getAllIncome)
 app.post('/addexpense', addExpense)
 app.post('/addIncome', addIncome)
-
+app.get(`/category`, getAllCategory)
+app.get('/income/:userId',isAuthenticated, getAllIncome)
+app.get('/getAllExpenseWithCat/:userId', isAuthenticated, getAllExpenseWithCat)
+app.get('/statement/:userId', isAuthenticated, getAllTransactions)
+app.delete('/delete/:id', isAuthenticated, deleteTransaction)
 
 
 

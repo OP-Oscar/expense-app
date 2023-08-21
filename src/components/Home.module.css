@@ -10,3 +10,24 @@
 .auth-msg {
 	margin-bottom: 15px;
 }
+
+.balance_title {
+    color:#1834e0;
+	padding-bottom: 10px;
+	text-align: center;
+}
+
+.chart_title {
+    color:#1834e0;
+	padding-bottom: 10px;
+	text-align: center;
+}
+
+.description{
+	text-align: center;
+	width: 512px;
+}
+
+.img_home{
+	height: 240px;
+}

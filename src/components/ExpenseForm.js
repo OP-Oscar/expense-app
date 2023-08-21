@@ -3,6 +3,7 @@ import { useState, useContext, useRef } from "react";
 import AuthContext from "../store/authContext";
 import axios from "axios";
 import styles from "./ExpenseForm.module.css";
+import { Alert, TextInput, Label, Button} from "flowbite-react";
 
 //category drop down module
 import CategoryDropDown from "./CategoryDropDown";
@@ -15,10 +16,10 @@ const minDate = pastDay.toISOString().split("T")[0];
 const maxDate = futureDay.toISOString().split("T")[0];
 const currentDate = today.toISOString().split("T")[0];
 
-
 function ExpenseForm() {
   const [expenseName, setExpenseName] = useState("");
   const [amount, setAmount] = useState("");
+  const [alertMessage, setAlertMessage] = useState(null);
   const [expenseDate, setExpenseDate] = useState(currentDate);
   const { userId, selectedCategory } = useContext(AuthContext);
   const formRef = useRef(null);
@@ -49,27 +50,44 @@ function ExpenseForm() {
         setExpenseName("");
         setAmount("");
         setExpenseDate(currentDate);
-        authCtx.catSelector('');
+        authCtx.catSelector("");
+        setAlertMessage(data);
+        // Clear the alert after 3000 milliseconds (3 seconds)
+        setTimeout(() => {
+          setAlertMessage(null);
+        }, 5000);
       })
       .catch((err) => {
         console.log(`error message from expense submit handler`, err.message);
         setExpenseName("");
         setAmount("");
         setExpenseDate(currentDate);
-        authCtx.catSelector('');
+        authCtx.catSelector("");
       });
 
     console.log("submitHandler in expenseform called");
   };
 
   return (
-    <div>
-      <h2>Add Expense</h2>
+    <div className={styles.expense_form}>
+      {alertMessage && (
+        <Alert color="success" onDismiss={() => setAlertMessage(null)}>
+          <span>
+            <p>
+              <span className="font-medium">{alertMessage}</span>
+            </p>
+          </span>
+        </Alert>
+      )}
+      <h2 className={styles.expense_title}>Add Expense</h2>
+      <br />
       <div>
-        <form ref={formRef} onSubmit={submitHandler}>
+        <form className="flex max-w-md flex-col gap-4" ref={formRef} onSubmit={submitHandler}>
           <div>
-            <label htmlFor="expName">Expense Name:</label>
-            <input
+            <div className="mb-2 block">
+            <Label htmlFor="expName">Expense Name:</Label>
+            </div>
+            <TextInput
               type="text"
               id="expenseName"
               value={expenseName}
@@ -77,24 +95,29 @@ function ExpenseForm() {
               required
             />
           </div>
-          <div>
+
             <CategoryDropDown />
-          </div>
+
+
           <div>
-            <label htmlFor="expDate">Expense Date:</label>
-            <input
+          <div className="mb-2 block">
+            <Label htmlFor="expDate">Expense Date:</Label>
+            </div>
+            <TextInput
               type="date"
               id="expenseDate"
               value={expenseDate}
               min={minDate}
               max={maxDate}
               onChange={(ele) => setExpenseDate(ele.target.value)}
-            ></input>
+            ></TextInput>
           </div>
 
           <div>
-            <label htmlFor="amount">Amount:</label>
-            <input
+          <div className="mb-2 block">
+            <Label htmlFor="amount">Amount:</Label>
+            </div>
+            <TextInput
               type="number"
               step="0.01"
               id="amount"
@@ -102,11 +125,15 @@ function ExpenseForm() {
               onChange={(ele) => {
                 //making sure only two decimal spaces
                 if (ele.target.value.match(/^(\d*\.{0,1}\d{0,2}$)/)) {
-                setAmount(ele.target.value)}}}
+                  setAmount(ele.target.value);
+                }
+              }}
               required
             />
           </div>
-          <button type="submit">Add Expense</button>
+          <Button type="submit"
+              className="bg-blue-700 hover:bg-blue-800 active:bg-blue-50"
+            >Add Expense</Button>
         </form>
       </div>
     </div>

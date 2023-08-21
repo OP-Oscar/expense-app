@@ -1,0 +1,77 @@
+.statement_div_main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.statement_div{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.btn_container{
+    display: flex;
+    text-align: center;
+    justify-content: left;
+    align-items: center;
+    width: 70px;
+    height: 36px;
+}
+
+
+.statement_title {
+    color:black;
+	padding-bottom: 10px;
+    text-align: center;
+    
+}
+
+.statement_date{
+    width: 120px;
+    text-align: left;
+    text-decoration: underline;   
+}
+
+.statement_transaction{
+    width: 200px;
+    text-align: left;
+    text-decoration: underline;   
+}
+
+.statement_amount{
+    width: 160px;
+    text-align: center;
+    text-decoration: underline;   
+}
+
+.statement_balance{
+    width: 160px;
+    text-align: center;
+    text-decoration: underline;   
+}
+
+.statement_date_data{
+    width: 120px;
+    text-align: left;
+}
+
+.statement_transaction_data{
+    width: 200px;
+    text-align: left;
+}
+
+.statement_amount_data{
+    width: 160px;
+    text-align: center;
+}
+
+.statement_balance_data{
+    width: 160px;
+    text-align: center;
+}
+
+
+.coolButton{
+    color: red;
+}
